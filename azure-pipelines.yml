@@ -1,4 +1,5 @@
 # Docker
+
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
@@ -21,9 +22,10 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/sampleapp/Dockerfile'
-        tags: |
-          $(tag)
+        command: 'login'
+        arguments: '--username josephm101 --password dckr_pat_lH1FI6GOlBn1Q9GUpxWjkCeGl24'
+    - task: Docker@2
+      inputs:
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
