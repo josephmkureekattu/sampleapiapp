@@ -19,7 +19,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: ubuntu-latest
+      vmImage: windows-2022
     steps:
     - task: Docker@2
       inputs:
