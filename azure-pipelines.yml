@@ -27,5 +27,5 @@ stages:
         arguments: '--username josephm101 --password dckr_pat_lH1FI6GOlBn1Q9GUpxWjkCeGl24'
     - task: Docker@2
       inputs:
-        command: 'buildAndPush'
+        command: 'build'
         Dockerfile: '**/Dockerfile'
