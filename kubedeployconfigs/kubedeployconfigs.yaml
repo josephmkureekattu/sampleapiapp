@@ -51,6 +51,8 @@ spec:
             name: sampleapp2-service
             port:
               number: 80
+status:
+  loadBalancer: {}
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
