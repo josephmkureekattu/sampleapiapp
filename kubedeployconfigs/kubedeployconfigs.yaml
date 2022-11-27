@@ -23,14 +23,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sampleapp2-service
+  name: sampleapp2service
+  namespace: default
 spec:
-  selector:
-    app.kubernetes.io/name: sampleapp2
   ports:
-      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-    - port: 80
-      targetPort: 80
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: sampleapp2
+  type: NodePort
 ---
 ---
 apiVersion: "networking.k8s.io/v1"
@@ -41,7 +43,7 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: "sampleapp2-service"
+      name: "sampleapp2service"
       port:
         number: 80
 status:
