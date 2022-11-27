@@ -20,7 +20,7 @@ spec:
       - name: "sampleapiapp"
         image: "gcr.io/the-helix-316011/sampleapiapp:latest"
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           protocol: TCP
 ---
 apiVersion: v1
@@ -32,10 +32,10 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 80
   selector:
-    run: sampleapp2
-  type: NodePort
+    app: sampleapp2
+  type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
