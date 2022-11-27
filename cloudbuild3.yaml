@@ -1,0 +1,15 @@
+steps:
+ # Build the container image
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['build', '-t', 'gcr.io/the-helix-316011/sampleapiapp:latest', '.']
+ # Push the container image to Container Registry
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'gcr.io/the-helix-316011/sampleapiapp:latest']
+steps:
+# Deploy container image to Cloud Run
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=kubedeployconfigs
+  - --location=europe-central2
+  - --cluster=autopilot-cluster-1

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "sampleapiapp-sha256-1"
-        image: "gcr.io/the-helix-316011/sampleapiapp@sha256:0ff1ce920e1814adfa94f0ab62cf2e2931de9d1c17a860fe36b87c4b6062ba2d"
+        image: "gcr.io/the-helix-316011/sampleapiapp:latest"
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
