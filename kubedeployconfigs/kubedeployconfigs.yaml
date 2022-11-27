@@ -45,16 +45,6 @@ spec:
       name: "sampleapp2-service"
       port:
         number: 80
-  rules:
-  - http:
-      paths:
-      - path: "/testpath"
-        backend:
-          service:
-            name: "sampleapp2-service"
-            port:
-              number: 80
-        pathType: "ImplementationSpecific"
 status:
   loadBalancer: {}
 ---
