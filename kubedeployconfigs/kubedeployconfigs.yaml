@@ -19,6 +19,9 @@ spec:
       containers:
       - name: "sampleapiapp"
         image: "gcr.io/the-helix-316011/sampleapiapp:latest"
+        ports:
+        - containerPort: 80
+          protocol: TCP
 ---
 apiVersion: v1
 kind: Service
