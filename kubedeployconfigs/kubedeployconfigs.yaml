@@ -32,25 +32,21 @@ spec:
   ports:
   - port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 8080
   selector:
     run: sampleapp2
   type: NodePort
 ---
----
-apiVersion: "networking.k8s.io/v1"
-kind: "Ingress"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: "sampleapp2-ingress"
-  namespace: "default"
+  name: basic-ingress
 spec:
   defaultBackend:
     service:
-      name: "sampleapp2service"
+      name: sampleapp2service
       port:
-        number: 80
-status:
-  loadBalancer: {}
+        number: 8080
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
