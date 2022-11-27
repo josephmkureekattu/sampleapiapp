@@ -17,7 +17,7 @@ spec:
         app: "sampleapp2"
     spec:
       containers:
-      - name: "sampleapiapp-sha256-1"
+      - name: "sampleapiapp"
         image: "gcr.io/the-helix-316011/sampleapiapp:latest"
 ---
 apiVersion: "autoscaling/v2"
