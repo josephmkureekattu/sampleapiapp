@@ -20,7 +20,7 @@ spec:
       - name: "sampleapiapp"
         image: "gcr.io/the-helix-316011/sampleapiapp:latest"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           protocol: TCP
 ---
 apiVersion: v1
@@ -30,7 +30,7 @@ metadata:
   namespace: default
 spec:
   ports:
-  - port: 80
+  - port: 8080
     protocol: TCP
     targetPort: 8080
   selector:
