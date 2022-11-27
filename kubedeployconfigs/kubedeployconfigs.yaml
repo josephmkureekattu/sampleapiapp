@@ -25,7 +25,6 @@ kind: Service
 metadata:
   name: sampleapp2-service
 spec:
-  type: NodePort
   selector:
     app.kubernetes.io/name: sampleapp2
   ports:
