@@ -33,24 +33,28 @@ spec:
     - port: 80
       targetPort: 80
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
 metadata:
-  name: sampleapp2-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: "sampleapp2-ingress"
+  namespace: "default"
 spec:
-  ingressClassName: sampleapp2-example
+  defaultBackend:
+    service:
+      name: "sampleapp2-service"
+      port:
+        number: 80
   rules:
   - http:
       paths:
-      - path: /testpath
-        pathType: Prefix
+      - path: "/testpath"
         backend:
           service:
-            name: sampleapp2-service
+            name: "sampleapp2-service"
             port:
               number: 80
+        pathType: "ImplementationSpecific"
 status:
   loadBalancer: {}
 ---
