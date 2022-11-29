@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "samplekubeclusterjsp-aa53"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "samplekubeclusterjsp-aa53"
+  template:
+    metadata:
+      labels:
+        app: "samplekubeclusterjsp-aa53"
+    spec:
+      containers:
+        - name: "samplekubeclusterjsp-aa53"
+          image: "testreg22.azurecr.io/samplekubeclusterjsp"
+          ports:
+          - containerPort: 80
