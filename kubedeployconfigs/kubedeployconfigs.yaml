@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "sampleapiapp"
-        image: "gcr.io/the-helix-316011/sampleapiapp:latest"
+        image: "sampleazurecontainerreg.azurecr.io/sampleapiapp:latest"
         ports:
         - containerPort: 80
           protocol: TCP
