@@ -1,3 +1,2 @@
-runtime: aspnetcore
+runtime: custom
 service: default
-env: flex
