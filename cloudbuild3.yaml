@@ -6,6 +6,12 @@ steps:
  - name: 'gcr.io/cloud-builders/docker'
    args: ['push', 'gcr.io/the-helix-316011/sampleapiapp:latest']
  # Deploy container image to Cloud Run
+ - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+   entrypoint: gcloud
+   args: ['run', 'deploy', 'sampleapiappcloudrun', '--image', 'gcr.io/the-helix-316011/sampleapiapp:latest', '--region', 'us-central1']
+ images:
+ - gcr.io/PROJECT_ID/IMAGE
+ # Deploy container image to Cloud Run
  - name: "gcr.io/cloud-builders/gke-deploy"
    args:
    - run
