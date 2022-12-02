@@ -26,5 +26,3 @@ steps:
       - --filename=kubedeployconfigs
       - --location=europe-central2
       - --cluster=autopilot-cluster-1
-options:
-  logging: CLOUD_LOGGING_ONLY
