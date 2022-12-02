@@ -20,8 +20,6 @@ steps:
       - gcr.io/the-helix-316011/sampleapiapp:latest
       - --region
       - us-central1
-    images:
-      - gcr.io/the-helix-316011/sampleapiapp:latest
   - name: gcr.io/cloud-builders/gke-deploy
     args:
       - run
