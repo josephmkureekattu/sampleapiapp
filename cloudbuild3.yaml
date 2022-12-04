@@ -26,7 +26,7 @@ steps:
       - --filename=kubedeployconfigs
       - --location=europe-central2
       - --cluster=autopilot-cluster-1
-      - --CONTAINER-REPO=gcr.io/the-helix-316011
+      - --CONTAINER_REPO=gcr.io/the-helix-316011
 options:
   logging: CLOUD_LOGGING_ONLY
 
