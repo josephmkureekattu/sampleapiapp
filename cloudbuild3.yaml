@@ -1,15 +1,15 @@
 ---
 steps:
-#  - name: gcr.io/cloud-builders/docker
-#   args:
-#     - build
-#      - -t
-#      - gcr.io/the-helix-316011/sampleapiapp:latest
-#      - .
-#  - name: gcr.io/cloud-builders/docker
-#    args:
-#      - push
-#      - gcr.io/the-helix-316011/sampleapiapp:latest
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - gcr.io/the-helix-316011/sampleapiapp:latest
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/the-helix-316011/sampleapiapp:latest
 #  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
 #    entrypoint: gcloud
 #    args:
