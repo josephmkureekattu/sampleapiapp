@@ -1,7 +1,7 @@
 ---
 steps:
   - name: gcr.io/cloud-builders/docker
-   args:
+    args:
      - build
       - -t
       - gcr.io/the-helix-316011/sampleapiapp:latest
@@ -15,7 +15,7 @@ steps:
 #    args:
 #      - run
 #      - deploy
-3      - sampleapiappcloudrun
+#      - sampleapiappcloudrun
 #      - --image
 #      - gcr.io/the-helix-316011/sampleapiapp:latest
 #      - --region
