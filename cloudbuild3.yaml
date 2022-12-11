@@ -2,7 +2,7 @@
 steps:
   - name: gcr.io/cloud-builders/docker
     args:
-     - build
+      - build
       - -t
       - gcr.io/the-helix-316011/sampleapiapp:latest
       - .
