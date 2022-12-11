@@ -22,7 +22,7 @@ steps:
 #      - us-central1
   - name: bash
     script: |
-         sed -i -e ''s/__CONTAINER-REPO__/sdfsdf/''  /home/vsts/work/1/drop/kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/sampleapiapp/''  /home/vsts/work/1/drop/kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/latest/''  /home/vsts/work/1/drop/kubedeployconfigs/kubedeployconfigs.yaml
+         sed -i -e ''s/__CONTAINER-REPO__/sdfsdf/''  kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/sampleapiapp/''  kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/latest/''  kubedeployconfigs/kubedeployconfigs.yaml
   - name: gcr.io/cloud-builders/gke-deploy
     args:
       - run
