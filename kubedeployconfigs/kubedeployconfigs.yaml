@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "sampleapiapp"
-        image: "__CONTAINER-REPO__/sampleapiapp:latest"
+        image: "__CONTAINER-REPO__/__imageRepository__:__tag__"
         ports:
         - containerPort: 80
           protocol: TCP
