@@ -46,7 +46,7 @@ stages:
       artifact: manifests
     - task: CopyFiles@2
       inputs:
-        contents: $(build.sourcesDirectory)/kubedeployconfigs
+        contents: $(build.sourcesDirectory)/kubedeployconfigs/*.*
         targetFolder: $(build.artifactStagingDirectory)
     - task: PublishBuildArtifacts@1
       inputs:
