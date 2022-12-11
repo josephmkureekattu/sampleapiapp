@@ -22,6 +22,9 @@ spec:
         ports:
         - containerPort: 80
           protocol: TCP
+        env:
+        - name: DBConnection
+          value: "__DBConnection__"
 ---
 apiVersion: v1
 kind: Service
