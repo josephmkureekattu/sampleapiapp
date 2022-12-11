@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using sampleapp.DBContext;
 
@@ -30,11 +31,11 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 //app.UseHttpsRedirection();
 
@@ -42,6 +43,22 @@ app.UseAuthorization();
 
 
 
+
 app.MapControllers();
+
+
+app.UseHealthChecks("/healthz", new HealthCheckOptions
+{
+    Predicate = (check) => !(check.Tags.Contains("ready") ||
+                              check.Tags.Contains("liveness"))
+})
+.UseHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = (check) => check.Tags.Contains("ready")
+})
+.UseHealthChecks("/health/live", new HealthCheckOptions
+{
+    Predicate = (check) => check.Tags.Contains("liveness")
+});
 
 app.Run();
