@@ -1,15 +1,15 @@
 ---
 steps:
-#  - name: gcr.io/cloud-builders/docker
-#    args:
-#      - build
-#      - -t
-#      - gcr.io/the-helix-316011/sampleapiapp:latest
-#      - .
-#  - name: gcr.io/cloud-builders/docker
-#    args:
-#      - push
-#      - gcr.io/the-helix-316011/sampleapiapp:latest
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - gcr.io/the-helix-316011/sampleapiapp:latest
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/the-helix-316011/sampleapiapp:latest
 #  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
 #    entrypoint: gcloud
 #    args:
@@ -20,6 +20,9 @@ steps:
 #      - gcr.io/the-helix-316011/sampleapiapp:latest
 #      - --region
 #      - us-central1
+  - name: bash
+    script: |
+         sed -i -e ''s/__CONTAINER-REPO__/gcr.io/the-helix-316011/'' /kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/sampleapiapp/''  /kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/latest/''  /kubedeployconfigs/kubedeployconfigs.yaml
   - name: gcr.io/cloud-builders/gke-deploy
     args:
       - run
