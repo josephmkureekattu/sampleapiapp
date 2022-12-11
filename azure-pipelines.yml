@@ -76,9 +76,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                sed ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml      
-                sed ''s/__imageRepository__/$(imageRepository)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml      
-                sed ''s/__tag__/$(tag)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
+                sed -i -e ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/$(imageRepository)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/$(tag)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
