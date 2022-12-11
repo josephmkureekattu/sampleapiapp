@@ -17,6 +17,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'testreg2219566f44-auth'
+  CONTAINER-REPO: 'testreg22.azurecr.io'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -70,8 +71,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/kubedeployconfigs/kubedeployconfigs.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
