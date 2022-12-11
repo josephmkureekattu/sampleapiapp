@@ -44,6 +44,14 @@ stages:
 
     - upload: manifests
       artifact: manifests
+    - task: CopyFiles@2
+      inputs:
+        contents: $(build.sourcesDirectory)/kubedeployconfigs
+        targetFolder: $(build.artifactStagingDirectory)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: $(build.artifactStagingDirectory)
+        artifactName: drop
 
 - stage: Deploy
   displayName: Deploy stage
@@ -71,7 +79,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/kubedeployconfigs/kubedeployconfigs.yaml
+                $(Pipeline.Workspace)/drop/kubedeployconfigs.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
