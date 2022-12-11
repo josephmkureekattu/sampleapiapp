@@ -40,14 +40,7 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: |
-                sed ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml      
-                sed ''s/__imageRepository__/$(imageRepository)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml      
-                sed ''s/__tag__/$(tag)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
-                
+          $(tag)                
     - upload: manifests
       artifact: manifests
     - task: CopyFiles@2
@@ -78,11 +71,14 @@ stages:
             inputs:
               action: createSecret
               secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)          
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: 'sed ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml'
+              script: |
+                sed ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml      
+                sed ''s/__imageRepository__/$(imageRepository)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml      
+                sed ''s/__tag__/$(tag)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
