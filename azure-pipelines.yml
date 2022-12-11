@@ -2,8 +2,8 @@
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-trigger:
-- master
+trigger: none
+#- master
 
 resources:
 - repo: self
@@ -17,6 +17,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'testreg2219566f44-auth'
+  CONTAINER-REPO: 'testreg22.azurecr.io'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -39,10 +40,17 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
-
+          $(tag)                
     - upload: manifests
       artifact: manifests
+    - task: CopyFiles@2
+      inputs:
+        contents: $(build.sourcesDirectory)/kubedeployconfigs/*.*
+        targetFolder: $(build.artifactStagingDirectory)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: $(build.artifactStagingDirectory)
+        artifactName: drop
 
 - stage: Deploy
   displayName: Deploy stage
@@ -63,17 +71,20 @@ stages:
             inputs:
               action: createSecret
               secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)          
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                sed -i -e ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/$(imageRepository)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/$(tag)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml  -e ''s/__DbConnection__/Server=tcp:samplejsptest.database.windows.net,1433;Initial Catalog=sampleapidb;Persist Security Info=False;User ID=jsp;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+                $(imageRepository):$(tag)
 
