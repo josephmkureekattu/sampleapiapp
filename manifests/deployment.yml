@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: josephmkureekattusampleapiapp 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: josephmkureekattusampleapiapp
+  template:
+    metadata:
+      labels:
+        app: josephmkureekattusampleapiapp 
+    spec:
+      containers:
+        - name: josephmkureekattusampleapiapp 
+          image: testreg22.azurecr.io/josephmkureekattusampleapiapp
+          ports:
+          - containerPort: 80
