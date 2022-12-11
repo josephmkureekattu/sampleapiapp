@@ -42,23 +42,10 @@ var app = builder.Build();
 app.UseAuthorization();
 
 
-
+app.Map("/", () => { return Results.Ok(); });
 
 app.MapControllers();
 
 
-app.UseHealthChecks("/healthz", new HealthCheckOptions
-{
-    Predicate = (check) => !(check.Tags.Contains("ready") ||
-                              check.Tags.Contains("liveness"))
-})
-.UseHealthChecks("/health/ready", new HealthCheckOptions
-{
-    Predicate = (check) => check.Tags.Contains("ready")
-})
-.UseHealthChecks("/health/live", new HealthCheckOptions
-{
-    Predicate = (check) => check.Tags.Contains("liveness")
-});
 
 app.Run();
