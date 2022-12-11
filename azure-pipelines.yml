@@ -79,7 +79,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/kubedeployconfigs/drop/kubedeployconfigs.yaml
+                $(Pipeline.Workspace)/kubedeployconfigs/kubedeployconfigs.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
