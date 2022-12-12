@@ -98,9 +98,9 @@ stages:
     steps:
     - task: efcore-migration-script-generator-task@1
       inputs:
-        projectpath: '**/src/Persistence/Persistence.csproj'
+        projectpath: '/src/Persistence/Persistence.csproj'
         databasecontexts: 'AppDbContext'
-        startupprojectpath: '**/src/sampleapp/sampleapp.csproj'
+        startupprojectpath: '/src/sampleapp/sampleapp.csproj'
         targetfolder: '$(build.artifactstagingdirectory)/migrations'
         installdependencies: true
         eftoolversion: '6'
