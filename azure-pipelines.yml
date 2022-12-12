@@ -87,4 +87,21 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(imageRepository):$(tag)
+- stage: DB Migrate
+  displayName: DB Migrate
+  
+  jobs:
+  - job: DBMigrate
+    displayName: DB Migrate
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: efcore-migration-script-generator-task@1
+      inputs:
+        projectpath: '**/src/Persistence/Persistence.csproj'
+        databasecontexts: 'AppDbContext'
+        startupprojectpath: '**/src/sampleapp/sampleapp.csproj'
+        targetfolder: '$(build.artifactstagingdirectory)/migrations'
+        installdependencies: true
+        eftoolversion: '6'
 
