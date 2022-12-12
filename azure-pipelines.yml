@@ -87,7 +87,7 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(imageRepository):$(tag)
-- stage: DB Migrate
+- stage: DBMigrate
   displayName: DB Migrate
   
   jobs:
