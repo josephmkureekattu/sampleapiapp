@@ -61,7 +61,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'sample-kube-cluster-jsp2.default'
+    environment: 'dsfsdfsdf.default'
     strategy:
       runOnce:
         deploy:
