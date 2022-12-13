@@ -88,32 +88,37 @@ stages:
               containers: |
                 $(imageRepository):$(tag)
 
-pool:
-  vmImage: windows-latest
-steps:
-- task: NuGetCommand@2  
-  displayName: 'Restore nuget packages' 
-- task: MSBuild@1
-  displayName: 'Build the project'
-- task: DotNetCoreCLI@2
-  displayName: 'Initialize EntityFrameworkCore'
-  inputs:
-    command: custom
-    custom: tool
-    arguments: 'install --global dotnet-ef'
-- task: DotNetCoreCLI@2
-  displayName: 'Create migration'
-  inputs:
-    command: custom
-    custom: ef
-    arguments: 'migrations script -i -o migration.sql' 
-- task: SqlAzureDacpacDeployment@1
-  displayName: Install the database
-  inputs:
-    azureSubscription: 'sample-db-serv-conn'
-    ServerName: 'samplejsptest'
-    DatabaseName: 'sampleapidb'
-    SqlUsername: 'jsp'
-    SqlPassword: 'Password@123'
-    DacpacFile: 'migration.sql'
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: windows-latest
+    steps:
+    - task: NuGetCommand@2  
+      displayName: 'Restore nuget packages' 
+    - task: MSBuild@1
+      displayName: 'Build the project'
+    - task: DotNetCoreCLI@2
+      displayName: 'Initialize EntityFrameworkCore'
+      inputs:
+        command: custom
+        custom: tool
+        arguments: 'install --global dotnet-ef'
+    - task: DotNetCoreCLI@2
+      displayName: 'Create migration'
+      inputs:
+        command: custom
+        custom: ef
+        arguments: 'migrations script -i -o migration.sql' 
+    - task: SqlAzureDacpacDeployment@1
+      displayName: Install the database
+      inputs:
+        azureSubscription: 'sample-db-serv-conn'
+        ServerName: 'samplejsptest'
+        DatabaseName: 'sampleapidb'
+        SqlUsername: 'jsp'
+        SqlPassword: 'Password@123'
+        DacpacFile: 'migration.sql'
 
