@@ -89,11 +89,11 @@ stages:
                 $(imageRepository):$(tag)
 - stage: DBMigrate
   displayName: DB Migrate
+  dependsOn: Build
   
   jobs:
   - job: DBMigrate
     displayName: DB Migrate
-    dependsOn: Build
     pool:
       vmImage: $(vmImageName)
     steps:
