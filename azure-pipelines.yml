@@ -96,7 +96,11 @@ stages:
     displayName: DB Migrate
     pool:
       vmImage: $(vmImageName)
-    steps:
+    steps:    
+    - task: VSBuild@1
+      inputs:
+        solution: '**\*.sln'
+        vsVersion: '17.0'
     - task: efcore-migration-script-generator-task@1
       inputs:
         projectpath: '/src/Persistence/Persistence.csproj'
