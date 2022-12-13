@@ -88,8 +88,8 @@ stages:
               containers: |
                 $(imageRepository):$(tag)
 
-- stage: Build
-  displayName: Build stage
+- stage: DBMigration
+  displayName: DBMigration
   jobs:
   - job: Build
     displayName: Build
