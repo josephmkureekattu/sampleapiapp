@@ -90,6 +90,7 @@ stages:
 
 - stage: DBMigration
   displayName: DBMigration
+  dependsOn: Build
   jobs:
   - job: Build
     displayName: Build
