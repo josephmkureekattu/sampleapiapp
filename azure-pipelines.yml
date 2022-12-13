@@ -87,26 +87,33 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(imageRepository):$(tag)
-- stage: DBMigrate
-  displayName: DB Migrate
-  dependsOn: Build
-  
-  jobs:
-  - job: DBMigrate
-    displayName: DB Migrate
-    pool:
-      vmImage: $(vmImageName)
-    steps:    
-    - task: VSBuild@1
-      inputs:
-        solution: '**\*.sln'
-        vsVersion: '17.0'
-    - task: efcore-migration-script-generator-task@1
-      inputs:
-        projectpath: '/src/Persistence/Persistence.csproj'
-        databasecontexts: 'AppDbContext'
-        startupprojectpath: '/src/sampleapp/sampleapp.csproj'
-        targetfolder: '$(build.artifactstagingdirectory)/migrations'
-        installdependencies: true
-        eftoolversion: '6'
+
+pool:
+  vmImage: windows-latest
+steps:
+- task: NuGetCommand@2  
+  displayName: 'Restore nuget packages' 
+- task: MSBuild@1
+  displayName: 'Build the project'
+- task: DotNetCoreCLI@2
+  displayName: 'Initialize EntityFrameworkCore'
+  inputs:
+    command: custom
+    custom: tool
+    arguments: 'install --global dotnet-ef'
+- task: DotNetCoreCLI@2
+  displayName: 'Create migration'
+  inputs:
+    command: custom
+    custom: ef
+    arguments: 'migrations script -i -o migration.sql' 
+- task: SqlAzureDacpacDeployment@1
+  displayName: Install the database
+  inputs:
+    azureSubscription: 'sample-db-serv-conn'
+    ServerName: 'samplejsptest'
+    DatabaseName: 'sampleapidb'
+    SqlUsername: 'jsp'
+    SqlPassword: 'Password@123'
+    DacpacFile: 'migration.sql'
 
