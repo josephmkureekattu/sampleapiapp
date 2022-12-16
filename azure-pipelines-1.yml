@@ -47,11 +47,6 @@ stages:
         command: custom
         custom: tool
         arguments: 'install --global dotnet-ef --version 6.0.0'
-    - task: UseDotNet@2
-      displayName: Use .NET 6.0
-      inputs:
-        packageType: 'sdk'
-        version: '6.0.x'
     - task: DotNetCoreCLI@2
       displayName: 'Create migration'
       inputs:
