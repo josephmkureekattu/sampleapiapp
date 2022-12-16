@@ -54,11 +54,13 @@ stages:
         custom: ef
         arguments: 'migrations script -i -o $(Build.SourcesDirectory)/migration.sql --project $(Build.SourcesDirectory)/src/Persistence/Persistence.csproj --startup-project $(Build.SourcesDirectory)/src/sampleapp/sampleapp.csproj' 
     - task: SqlAzureDacpacDeployment@1
-      displayName: Install the database
       inputs:
         azureSubscription: 'sample-db-serv-conn'
+        AuthenticationType: 'server'
         ServerName: 'samplejsptest.database.windows.net'
         DatabaseName: 'sampleapidb'
         SqlUsername: 'jsp'
         SqlPassword: 'Password@123'
-        SqlFile: $(Build.SourcesDirectory)/migration.sql
+        deployType: 'SqlTask'
+        SqlFile: '$(Build.SourcesDirectory)/migration.sql'
+        IpDetectionMethod: 'AutoDetect'
