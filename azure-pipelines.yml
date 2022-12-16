@@ -90,7 +90,7 @@ stages:
 
 - stage: DBMigration
   displayName: DBMigration
-  dependsOn: Build
+  dependsOn: Deploy
   jobs:
   - job: Build
     displayName: Build
@@ -112,24 +112,20 @@ stages:
         command: custom
         custom: tool
         arguments: 'install --global dotnet-ef --version 6.0.0'
-    - task: UseDotNet@2
-      displayName: Use .NET 6.0
-      inputs:
-        packageType: 'sdk'
-        version: '6.0.x'
     - task: DotNetCoreCLI@2
       displayName: 'Create migration'
       inputs:
         command: custom
         custom: ef
-        projects: '/Persistence/*.csproj'
-        arguments: 'migrations script -i -o migration.sql' 
+        arguments: 'migrations script -i -o $(Build.SourcesDirectory)/migration.sql --project $(Build.SourcesDirectory)/src/Persistence/Persistence.csproj --startup-project $(Build.SourcesDirectory)/src/sampleapp/sampleapp.csproj' 
     - task: SqlAzureDacpacDeployment@1
-      displayName: Install the database
       inputs:
         azureSubscription: 'sample-db-serv-conn'
-        ServerName: 'samplejsptest'
+        AuthenticationType: 'server'
+        ServerName: 'samplejsptest.database.windows.net'
         DatabaseName: 'sampleapidb'
         SqlUsername: 'jsp'
         SqlPassword: 'Password@123'
-        DacpacFile: 'migration.sql'
+        deployType: 'SqlTask'
+        SqlFile: '$(Build.SourcesDirectory)/migration.sql'
+        IpDetectionMethod: 'AutoDetect'
