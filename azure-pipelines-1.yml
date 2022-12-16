@@ -2,8 +2,8 @@
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-trigger: 
-- master
+trigger: none
+#- master
 
 resources:
 - repo: self
@@ -57,7 +57,7 @@ stages:
       inputs:
         command: custom
         custom: ef
-        projects: '$(System.DefaultWorkingDirectory)/Persistence/*.csproj'
+        projects: '$(System.DefaultWorkingDirectory)/Persistence/Persistence.csproj'
         arguments: 'migrations script -i -o migration.sql' 
     - task: SqlAzureDacpacDeployment@1
       displayName: Install the database
