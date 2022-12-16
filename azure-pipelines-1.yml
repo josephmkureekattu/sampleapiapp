@@ -62,7 +62,7 @@ stages:
       displayName: Install the database
       inputs:
         azureSubscription: 'sample-db-serv-conn'
-        ServerName: 'samplejsptest'
+        ServerName: 'samplejsptest.database.windows.net'
         DatabaseName: 'sampleapidb'
         SqlUsername: 'jsp'
         SqlPassword: 'Password@123'
