@@ -57,7 +57,7 @@ stages:
       inputs:
         command: custom
         custom: ef
-        projects: 'src/Persistence/Persistence.csproj'
+        projects: 'src/Persistence'
         arguments: 'migrations script -i -o migration.sql' 
     - task: SqlAzureDacpacDeployment@1
       displayName: Install the database
