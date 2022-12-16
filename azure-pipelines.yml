@@ -95,7 +95,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: windows-2022
+      vmImage: windows-latest
     steps:
     - task: NuGetCommand@2  
       displayName: 'Restore nuget packages' 
