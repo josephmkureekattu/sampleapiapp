@@ -1,0 +1,71 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger: none
+#- master
+
+resources:
+- repo: self
+
+variables:
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'a2fd800b-c2eb-42dc-bee0-968108d219d8'
+  imageRepository: 'josephmkureekattusampleapiapp'
+  containerRegistry: 'testreg22.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'testreg2219566f44-auth'
+  CONTAINER-REPO: 'testreg22.azurecr.io'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+
+stages:
+- stage: DBMigration
+  displayName: DBMigration
+  dependsOn: Build
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: windows-latest
+    steps:
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet >=6.3.0-0'
+      inputs:
+        versionSpec: '>=6.3.0-0'
+        checkLatest: true
+    - task: NuGetCommand@2  
+      displayName: 'Restore nuget packages' 
+    - task: MSBuild@1
+      displayName: 'Build the project'
+    - task: DotNetCoreCLI@2
+      displayName: 'Initialize EntityFrameworkCore'
+      inputs:
+        command: custom
+        custom: tool
+        arguments: 'install --global dotnet-ef --version 6.0.0'
+    - task: UseDotNet@2
+      displayName: Use .NET 6.0
+      inputs:
+        packageType: 'sdk'
+        version: '6.0.x'
+    - task: DotNetCoreCLI@2
+      displayName: 'Create migration'
+      inputs:
+        command: custom
+        custom: ef
+        projects: '*/Persistence/*.csproj'
+        arguments: 'migrations script -i -o migration.sql' 
+    - task: SqlAzureDacpacDeployment@1
+      displayName: Install the database
+      inputs:
+        azureSubscription: 'sample-db-serv-conn'
+        ServerName: 'samplejsptest'
+        DatabaseName: 'sampleapidb'
+        SqlUsername: 'jsp'
+        SqlPassword: 'Password@123'
+        DacpacFile: 'migration.sql'
