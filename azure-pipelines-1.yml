@@ -61,4 +61,4 @@ stages:
         DatabaseName: 'sampleapidb'
         SqlUsername: 'jsp'
         SqlPassword: 'Password@123'
-        DacpacFile: 'migration.sql'
+        SqlFile: 'migration.sql'
