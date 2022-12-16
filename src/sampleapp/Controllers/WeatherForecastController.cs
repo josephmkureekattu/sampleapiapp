@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using sampleapp.DBContext;
 
 namespace sampleapp.Controllers
 {
@@ -12,15 +13,18 @@ namespace sampleapp.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly AppDbContext _appContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, AppDbContext appContext)
         {
             _logger = logger;
+            _appContext = appContext;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            _appContext.Add(new RunLog { EntryDate = DateTime.UtcNow });
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

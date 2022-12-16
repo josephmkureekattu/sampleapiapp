@@ -5,7 +5,14 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sampleapp", "src\sampleapp\sampleapp.csproj", "{001D904D-84B1-4441-BB71-FB799274A91A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "src\Persistence\Persistence.csproj", "{15E8DDEC-6C78-4A57-BD3D-2437312FCAFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "src\Persistence\Persistence.csproj", "{15E8DDEC-6C78-4A57-BD3D-2437312FCAFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B143BAF-131E-408F-ACBB-3B1814028171}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		cloudbuild3.yaml = cloudbuild3.yaml
+		kubedeployconfigs\kubedeployconfigs.yaml = kubedeployconfigs\kubedeployconfigs.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
