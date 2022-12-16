@@ -25,6 +25,7 @@ namespace sampleapp.Controllers
         public IEnumerable<WeatherForecast> Get()
         {
             _appContext.Add(new RunLog { EntryDate = DateTime.UtcNow });
+            _appContext.SaveChanges();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
