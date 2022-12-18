@@ -22,7 +22,10 @@ steps:
 #      - us-central1
   - name: bash
     script: |
-         sed -i -e 's+__CONTAINER-REPO__+gcr.io/the-helix-316011+'  kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/sampleapiapp/''  kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/latest/''  kubedeployconfigs/kubedeployconfigs.yaml  -e 's/__DbConnection__/Server=tcp:samplejsptest.database.windows.net,1433;Initial Catalog=sampleapidb;Persist Security Info=False;User ID=jsp;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;/'  kubedeployconfigs/kubedeployconfigs.yaml
+         sed -i -e 's+__CONTAINER-REPO__+gcr.io/the-helix-316011+'  kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/sampleapiapp/''  kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/latest/''  kubedeployconfigs/kubedeployconfigs.yaml  -e 's/__DbConnection__/Server=tcp:samplejsptest.database.windows.net,1433;Initial Catalog=sampleapidb;Persist Security Info=False;User ID=jsp;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;/g'  kubedeployconfigs/kubedeployconfigs.yaml
+  - name: bash
+    script: |
+         cat kubedeployconfigs/kubedeployconfigs.yaml
   - name: gcr.io/cloud-builders/gke-deploy
     args:
       - run
