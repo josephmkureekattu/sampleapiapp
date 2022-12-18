@@ -76,7 +76,7 @@ stages:
             inputs:
               targetType: 'inline'
               script: |
-                sed -i -e ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/$(imageRepository)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/$(tag)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml  -e ''s/__DbConnection__/"Server=tcp:samplejsptest.database.windows.net,1433;Initial Catalog=sampleapidb;Persist Security Info=False;User ID=jsp;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
+                sed -i -e ''s/__CONTAINER-REPO__/$(containerRegistry)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e ''s/__imageRepository__/$(imageRepository)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml -e   ''s/__tag__/$(tag)/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml  -e ''s/__DBConnection__/Server=tcp:samplejsptest.database.windows.net,1433;Initial Catalog=sampleapidb;Persist Security Info=False;User ID=jsp;Password=Password@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;/''  $(Pipeline.Workspace)/drop/kubedeployconfigs/kubedeployconfigs.yaml
           - task: Bash@3
             inputs:
               targetType: 'inline'
