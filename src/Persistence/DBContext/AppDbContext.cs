@@ -13,7 +13,7 @@ namespace sampleapp.DBContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RunLog>().Property(e => e.Id)
-                .UseIdentityColumn(seed: 0, increment: 1);
+                .UseIdentityColumn(seed: 1, increment: 1);
             base.OnModelCreating(modelBuilder);
         }
 
