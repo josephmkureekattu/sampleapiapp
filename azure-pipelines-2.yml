@@ -15,7 +15,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@1
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '6.x'
 
 - task: NuGetCommand@2
   inputs:
