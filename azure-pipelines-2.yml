@@ -29,13 +29,12 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    workingDirectory: '$(System.DefaultWorkingDirectory/src/sampleapiapp'
+    projects: '$(System.DefaultWorkingDirectory/src/sampleapiapp'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: true
-    workingDirectory: '$(System.DefaultWorkingDirectory/src/sampleapiapp'
 
 
 - task: PublishBuildArtifacts@1
