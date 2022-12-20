@@ -24,12 +24,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-    
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'src/sampleapp/*.csproj'
 
 - task: DotNetCoreCLI@2
   inputs:
