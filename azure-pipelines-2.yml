@@ -29,8 +29,9 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '--output $(build.artifactstagingdirectory)'
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     workingDirectory: 'src/sampleapp'
+    zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
   inputs:
