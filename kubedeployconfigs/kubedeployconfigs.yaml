@@ -67,7 +67,7 @@ spec:
     name: "sampleapp2"
     apiVersion: "apps/v1"
   minReplicas: 1
-  maxReplicas: 1
+  maxReplicas: 3
   metrics:
   - type: "Resource"
     resource:
