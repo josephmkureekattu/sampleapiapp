@@ -25,7 +25,7 @@ spec:
         env:
         - name: DBConnection
           value: "__DBConnection__"        
-      - resources:
+        resources:
           requests:
             cpu: 250m
           limits:
