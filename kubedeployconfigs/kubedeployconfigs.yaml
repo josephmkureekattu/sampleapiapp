@@ -1,6 +1,11 @@
 ---
 apiVersion: "apps/v1"
 kind: "Deployment"
+resources:
+  requests:
+    cpu: 250m
+    limits:
+      cpu: 500m
 metadata:
   name: "sampleapp2"
   namespace: "default"
