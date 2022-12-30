@@ -75,3 +75,6 @@ spec:
       target:
         type: "Utilization"
         averageUtilization: 3
+  behavior:
+    scaleDown:
+        stabilizationWindowSeconds: 300
