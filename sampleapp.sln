@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		kubedeployconfigs\kubedeployconfigs.yaml = kubedeployconfigs\kubedeployconfigs.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "samplefnapp", "samplefnapp\samplefnapp.csproj", "{140751D8-0217-42D8-92A5-CE001A0C19F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "samplefnapp", "src\samplefnapp\samplefnapp.csproj", "{140751D8-0217-42D8-92A5-CE001A0C19F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
