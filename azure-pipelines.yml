@@ -62,7 +62,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    #environment: 'gdfgdf.default'
+    environment: 'gdfgdf'
     strategy:
       runOnce:
         deploy:
