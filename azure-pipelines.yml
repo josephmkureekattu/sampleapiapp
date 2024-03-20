@@ -11,9 +11,10 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'a2fd800b-c2eb-42dc-bee0-968108d219d8'
+  #dockerRegistryServiceConnection: 'a2fd800b-c2eb-42dc-bee0-968108d219d8'
+  dockerRegistryServiceConnection: 'testservconn'
   imageRepository: 'josephmkureekattusampleapiapp'
-  containerRegistry: 'testreg22.azurecr.io'
+  containerRegistry: 'testregjsp01.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'testreg2219566f44-auth'
