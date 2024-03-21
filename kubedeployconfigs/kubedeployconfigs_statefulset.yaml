@@ -117,7 +117,7 @@ spec:
           image: busybox
           command: ["sh", "-c", "chown -R $(stat -c '%u:%g' /var/opt/mssql) /var/opt/mssql"]
           volumeMounts:
-            - name: mssql-data
+            - name: sql-server-persistent-storage
               mountPath: /var/opt/mssql
       containers:
         - name: sql-server
