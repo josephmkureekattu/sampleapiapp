@@ -84,45 +84,51 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: sql-server
   labels:
-    app: mysql
+    app: sql-server
 spec:
   ports:
-    - port: 3306
+    - port: 1433
   clusterIP: None
   selector:
-    app: mysql
+    app: sql-server
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql
+  name: sql-server
 spec:
-  serviceName: mysql
+  serviceName: sql-server
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: sql-server
   template:
     metadata:
       labels:
-        app: mysql
+        app: sql-server
     spec:
       containers:
-        - name: mysql
-          image: mysql:latest
+        - name: sql-server
+          image: mcr.microsoft.com/mssql/server:latest
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: examplepassword
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              value: "Password@123"  # Adjust the password as needed
           ports:
-            - containerPort: 3306
+            - containerPort: 1433
           volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
+            - name: sql-server-persistent-storage
+              mountPath: /var/opt/mssql
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $MSSQL_SA_PASSWORD -Q "CREATE DATABASE sampleapidb;"
   volumeClaimTemplates:
     - metadata:
-        name: mysql-persistent-storage
+        name: sql-server-persistent-storage
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
