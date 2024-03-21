@@ -43,7 +43,7 @@ app.UseAuthorization();
 
 
 app.Map("/", () => { return Results.Ok(); });
-
+app.Map("/test", () => { return Results.Ok("test"); });
 
 
 app.MapControllers();
