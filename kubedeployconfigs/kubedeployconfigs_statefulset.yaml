@@ -122,10 +122,10 @@ spec:
           volumeMounts:
             - name: sql-server-persistent-storage
               mountPath: /var/opt/mssql
-          command: ["/bin/bash", "-c"]
-          args:
-            - |
-              /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $MSSQL_SA_PASSWORD -Q "CREATE DATABASE sampleapidb;"
+          #command: ["/bin/bash", "-c"]
+          #args:
+          #  - |
+          #    /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P $MSSQL_SA_PASSWORD -Q "CREATE DATABASE sampleapidb;"
   volumeClaimTemplates:
     - metadata:
         name: sql-server-persistent-storage
