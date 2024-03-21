@@ -109,6 +109,16 @@ spec:
       labels:
         app: sql-server
     spec:
+      securityContext:
+        runAsUser: 10001  # Adjust the runAsUser as needed
+        runAsGroup: 10001 # Adjust the runAsGroup as needed
+      initContainers:
+        - name: set-fs-group
+          image: busybox
+          command: ["sh", "-c", "chown -R $(stat -c '%u:%g' /var/opt/mssql) /var/opt/mssql"]
+          volumeMounts:
+            - name: mssql-data
+              mountPath: /var/opt/mssql
       containers:
         - name: sql-server
           image: mcr.microsoft.com/mssql/server:latest
